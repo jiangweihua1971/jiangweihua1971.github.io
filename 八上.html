@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>东营市胜利第一初级中学物理测评系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "微软雅黑", sans-serif;
+        }
+ 
+        body {
+            background: #e6f0ff; /* 浅蓝色背景 */
+            padding: 20px;
+            position: relative;
+            min-height: 100vh;
+        }
+ 
+        .main-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+ 
+        .tree-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+ 
+        .tree-title {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+ 
+        .tree-node {
+            list-style: none;
+            padding-left: 20px;
+        }
+ 
+        .tree-node-item {
+            margin: 8px 0;
+            position: relative;
+        }
+ 
+        .toggle-icon {
+            position: absolute;
+            left: -18px;
+            top: 5px;
+            cursor: pointer;
+            color: #3498db;
+            font-weight: bold;
+        }
+ 
+        .chapter-link {
+            color: #34495e;
+            text-decoration: none;
+            padding: 5px;
+            display: block;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+ 
+        .chapter-link:hover {
+            background: #f0f4f8;
+        }
+ 
+        .section-list {
+            display: none;
+            margin-left: 20px;
+        }
+ 
+        .section-list.show  {
+            display: block;
+        }
+ 
+        .back-home {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: background-color 0.2s;
+        }
+ 
+        .back-home:hover {
+            background-color: #2980b9;
+        }
+ 
+        @media (max-width: 768px) {
+            .tree-container {
+                padding: 15px;
+            }
+            .tree-node {
+                padding-left: 10px;
+            }
+            .main-title {
+                font-size: 1.8em;
+            }
+        }
+ 
+        @media (max-width: 480px) {
+            .chapter-link {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+            .back-home {
+                padding: 8px 16px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="main-title">东营市胜利第一初级中学物理测评系统</h1>
+    <div class="tree-container">
+        <h1 class="tree-title">八年级上册</h1>
+        <ul class="tree-node" id="directoryTree"></ul>
+    </div>
+ 
+    <a href="zhuye.html"  class="back-home">返回主页</a>
+ 
+    <script>
+        // 完整章节数据结构 
+        const directoryData = [
+            {
+                chapter: "走进物理",
+                link: "#",
+                sections: [
+                    { name: "第一节 有趣有用的物理", link: "https://kaoshi.wjx.top/vm/ru90KJJ.aspx#"  },
+                    { name: "第二节 像科学家一样思考", link: "https://kaoshi.wjx.top/vm/mimL9Vb.aspx#"  },
+                    { name: "第三节 怎样进行科学探究", link: "https://kaoshi.wjx.top/vm/e4hKWUn.aspx#"  },
+                    { name: "第四节 走进实验室", link: "https://kaoshi.wjx.top/vm/QfiAqeW.aspx#"  }
+                ]
+            },
+            {
+                chapter: "第一章 机械运动",
+                link: "#",
+                sections: [
+                    { name: "第一节 动与静", link: "https://kaoshi.wjx.top/vm/wWcWL8M.aspx#"  },
+                    { name: "第二节 快与慢", link: "https://kaoshi.wjx.top/vm/mo3bZxd.aspx#"  },
+                    { name: "第三节 速度的测量", link: "https://kaoshi.wjx.top/vm/P8Apl0X.aspx#"  },
+                    { name: "本章复习与测试", link: "https://kaoshi.wjx.top/vm/YSrTaFX.aspx#"  }
+                ]
+            },
+            {
+                chapter: "第二章 声现象",
+                link: "#",
+                sections: [
+                    { name: "第一节 声音的产生与传播", link: "https://kaoshi.wjx.top/vm/t2kwFhb.aspx#"  },
+                    { name: "第二节 声音的特性", link: "https://kaoshi.wjx.top/vm/wTcVor7.aspx#"  },
+                    { name: "第三节 次声与超声", link: "https://kaoshi.wjx.top/vm/Olbz7Fx.aspx#"  },
+                    { name: "第四节 乐音与噪声", link: "https://kaoshi.wjx.top/vm/QLDrqaw.aspx#"  },
+                    { name: "本章复习与测试", link: "https://kaoshi.wjx.top/vm/hfvDcjW.aspx#"  }
+                ]
+            },
+            {
+                chapter: "第三章 光现象",
+                link: "#",
+                sections: [
+                    { name: "第一节 光的传播", link: "https://kaoshi.wjx.top/vm/PEFMSgj.aspx#"  },
+                    { name: "第二节 光的反射", link: "https://kaoshi.wjx.top/vm/PPipNMn.aspx#"  },
+                    { name: "第三节 平面镜成像", link: "https://kaoshi.wjx.top/vm/ORvDL8S.aspx#"  },
+                    { name: "第四节 光的折射与透镜", link: "https://kaoshi.wjx.top/vm/Ok2nUiU.aspx#"  },
+                    { name: "第五节 凸透镜成像的规律", link: "https://kaoshi.wjx.top/vm/YUDaHDt.aspx#"  },
+                    { name: "第六节 光的色散", link: "https://kaoshi.wjx.top/vm/exckM4O.aspx#"  },
+                    { name: "跨学科实践 眼睛与眼镜", link: "https://kaoshi.wjx.top/vm/huu94yP.aspx#"  },
+                    { name: "本章复习与测试", link: "https://kaoshi.wjx.top/vm/OXPmerX.aspx#"  }
+                ]
+            },
+            {
+                chapter: "第四章 物质与材料",
+                link: "#",
+                sections: [
+                    { name: "第一节 质量及其测量", link: "https://kaoshi.wjx.top/vm/hH7ycZJ.aspx#"  },
+                    { name: "第二节 密度", link: "https://kaoshi.wjx.top/vm/rv7fxBh.aspx#"  },
+                    { name: "第三节 测量物质的密度", link: "https://kaoshi.wjx.top/vm/eD4kIvY.aspx#"  },
+                    { name: "跨学科实践 走进材料世界", link: "https://kaoshi.wjx.top/vm/e6akIL8.aspx#"  },
+                    { name: "本章复习与测试", link: "https://kaoshi.wjx.top/vm/eJ4nV6z.aspx#"  }
+                ]
+            },
+            {
+                chapter: "第五章 宇宙和粒子",
+                link: "#",
+                sections: [
+                    { name: "本章复习与测试", link: "https://kaoshi.wjx.top/vm/YHPyBtw.aspx#"  }
+                ]
+            }
+        ];
+ 
+        // 动态生成目录 
+        function buildDirectory() {
+            const treeContainer = document.getElementById('directoryTree'); 
+ 
+            directoryData.forEach(chapter  => {
+                const li = document.createElement('li'); 
+                li.className  = 'tree-node-item';
+ 
+                li.innerHTML  = `
+                    <span class="toggle-icon">▶</span>
+                    <a href="${chapter.link}"  class="chapter-link" target="_blank">${chapter.chapter}</a> 
+                    <ul class="section-list">
+                        ${chapter.sections.map(section  => `
+                            <li class="tree-node-item">
+                                <a href="${section.link}"  class="chapter-link" target="_blank">${section.name}</a> 
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+ 
+                const toggleIcon = li.querySelector('.toggle-icon'); 
+                const sectionList = li.querySelector('.section-list'); 
+                toggleIcon.addEventListener('click',  () => {
+                    sectionList.classList.toggle('show'); 
+                    toggleIcon.textContent  = sectionList.classList.contains('show')  ? '▼' : '▶';
+                });
+ 
+                treeContainer.appendChild(li); 
+            });
+        }
+ 
+        // 初始化 
+        buildDirectory();
+    </script>
+</body>
+</html>

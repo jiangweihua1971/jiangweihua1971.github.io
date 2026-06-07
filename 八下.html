@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>东营市胜利第一初级中学物理测评系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "微软雅黑", sans-serif;
+        }
+ 
+        body {
+            background: #e6f0ff; /* 浅蓝色背景 */
+            padding: 20px;
+            position: relative;
+        }
+ 
+        .main-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+ 
+        .tree-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+ 
+        .tree-title {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+ 
+        .tree-node {
+            list-style: none;
+            padding-left: 20px;
+        }
+ 
+        .tree-node-item {
+            margin: 8px 0;
+            position: relative;
+        }
+ 
+        .toggle-icon {
+            position: absolute;
+            left: -18px;
+            top: 5px;
+            cursor: pointer;
+            color: #3498db;
+            font-weight: bold;
+        }
+ 
+        .chapter-link {
+            color: #34495e;
+            text-decoration: none;
+            padding: 5px;
+            display: block;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+ 
+        .chapter-link:hover {
+            background: #f0f4f8;
+        }
+ 
+        .section-list {
+            display: none;
+            margin-left: 20px;
+        }
+ 
+        .section-list.show  {
+            display: block;
+        }
+ 
+        .back-home {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+ 
+        .back-home:hover {
+            background: #2980b9;
+        }
+ 
+        @media (max-width: 768px) {
+            .tree-container {
+                padding: 15px;
+            }
+            .tree-node {
+                padding-left: 10px;
+            }
+            .main-title {
+                font-size: 1.8em;
+            }
+        }
+ 
+        @media (max-width: 480px) {
+            .back-home {
+                padding: 8px 16px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="main-title">东营市胜利第一初级中学物理测评系统</h1>
+    <div class="tree-container">
+        <h1 class="tree-title">八年级下册</h1>
+        <ul class="tree-node" id="directoryTree"></ul>
+    </div>
+ 
+    <a href="zhuye.html"  class="back-home">返回主页</a>
+ 
+    <script>
+        // 完整章节数据结构 
+        const directoryData = [
+            {
+                chapter: "第六章 力与运动",
+                link: "#",
+                sections: [
+                    { name: "第一节 力", link: "https://kaoshi.wjx.top/hm/qvuljcgxxk9ijusk5dpzg.aspx"  },
+                    { name: "第二节 弹力", link: "https://kaoshi.wjx.top/vm/hgYwEdZ.aspx"  },
+                    { name: "第三节 重力", link: "https://kaoshi.wjx.top/vm/Oj4AJMX.aspx"  },
+                    { name: "第四节 摩擦力", link: "https://kaoshi.wjx.top/vm/OFZw0Xk.aspx"  },
+                    { name: "第五节 牛顿第一定律", link: "https://kaoshi.wjx.top/vm/h32eAsX.aspx"  },
+                    { name: "第六节 二力平衡", link: "https://kaoshi.wjx.top/vm/mk52L2A.aspx"  },
+                    { name: "跨学科实践 制作水火箭", link: "#" }
+                ]
+            },
+            {
+                chapter: "第七章 压强",
+                link: "#",
+                sections: [
+                    { name: "第一节 压强", link: "https://kaoshi.wjx.top/vm/wbFkEvN.aspx"  },
+                    { name: "第二节 液体压强", link: "https://kaoshi.wjx.top/vm/mbGC60k.aspx"  },
+                    { name: "第三节 连通器", link: "https://kaoshi.wjx.top/m/66788514.aspx"  },
+                    { name: "第四节 大气压强", link: "https://kaoshi.wjx.top/vm/QidzBVJ.aspx"  },
+                    { name: "第五节 流体压强", link: "https://kaoshi.wjx.top/m/68734974.aspx"  }
+                ]
+            },
+            {
+                chapter: "第八章 浮力",
+                link: "#",
+                sections: [
+                    { name: "第一节 浮力", link: "https://kaoshi.wjx.top/vm/t5mXmMt.aspx"  },
+                    { name: "第二节 阿基米德原理", link: "https://kaoshi.wjx.top/vm/txOeXuN.aspx"  },
+                    { name: "第三节 浮与沉", link: "https://kaoshi.wjx.top/vm/ht4ylOe.aspx"  }
+                ]
+            },
+            {
+                chapter: "第九章 简单机械",
+                link: "#",
+                sections: [
+                    { name: "第一节 杠杆", link: "https://kaoshi.wjx.top/vm/tbkXgV2.aspx"  },
+                    { name: "第二节 滑轮", link: "https://kaoshi.wjx.top/vm/h4eCH1t.aspx"  },
+                    { name: "第三节 斜面", link: "https://kaoshi.wjx.top/vm/QfpEVWX.aspx"  },
+                    { name: "跨学科实践 桥", link: "#" }
+                ]
+            },
+            {
+                chapter: "第十章 功与能",
+                link: "#",
+                sections: [
+                    { name: "第一节 功", link: "https://kaoshi.wjx.top/vm/t9cQRLX.aspx"  },
+                    { name: "第二节 功率", link: "https://kaoshi.wjx.top/vm/h2WFs0e.aspx"  },
+                    { name: "第三节 机械效率", link: "https://kaoshi.wjx.top/vm/eMN4A6h.aspx"  },
+                    { name: "第四节 动能与势能", link: "https://kaoshi.wjx.top/vm/OtGsblV.aspx"  },
+                    { name: "第五节 机械能及其转化", link: "https://kaoshi.wjx.top/vm/md6JwbM.aspx"  },
+                    { name: "跨学科实践 制作龙骨水车", link: "#" }
+                ]
+            }
+        ];
+ 
+        // 动态生成目录 
+        function buildDirectory() {
+            const treeContainer = document.getElementById('directoryTree');     
+            
+            directoryData.forEach(chapter  => {
+                const li = document.createElement('li');     
+                li.className  = 'tree-node-item';
+                
+                li.innerHTML  = `
+                    <span class="toggle-icon">▶</span>
+                    <a href="${chapter.link}"  class="chapter-link" target="_blank">${chapter.chapter}</a>     
+                    <ul class="section-list"></ul>
+                `;
+ 
+                const sectionList = li.querySelector('.section-list');     
+                chapter.sections.forEach(section  => {
+                    sectionList.innerHTML  += `
+                        <li class="tree-node-item">
+                            <a href="${section.link}"  class="chapter-link" target="_blank">${section.name}</a>     
+                        </li>
+                    `;
+                });
+ 
+                const toggleIcon = li.querySelector('.toggle-icon');     
+                toggleIcon.addEventListener('click',  () => {
+                    sectionList.classList.toggle('show');     
+                    toggleIcon.textContent  = sectionList.classList.contains('show')  ? '▼' : '▶';
+                });
+ 
+                treeContainer.appendChild(li);     
+            });
+        }
+ 
+        // 初始化 
+        buildDirectory();
+    </script>
+</body>
+</html>
